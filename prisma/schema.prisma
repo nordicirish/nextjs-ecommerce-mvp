@@ -9,3 +9,56 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Product {
+  id                     String                 @id @default(uuid())
+  // cents for stripe integration
+  priceInCents           Int
+  filePath               String
+  imagePath              String
+  description            String
+  // allows removing product from sale but still allows access to previous purchasers 
+  isAvailableForPurchase Boolean                @default(true)
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  // orders is an array of orders
+  Orders                 Order[]
+  // downloadVefictions is an array of downloadVerifications
+  downloadVerifications  DownloadVerification[]
+}
+
+model User {
+  id        String   @id @default(uuid())
+  // unique email allows email to be username
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // orders is an array of user orders
+  orders    Order[]
+}
+
+model Order {
+  id               String   @id @default(uuid())
+  // tracks price paid by user when they purchase as product price can change over time
+  pricePaidInCents Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  userId           String
+  productId        String
+  // relates order to user 
+  // cascade will delete all orders associated with a deleted user
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // relates order to product
+  // onDelete prevents deletiion of products that have orders
+  product          Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+}
+// for use in creating links that allow individual productsto be downloaded 
+model DownloadVerification {
+  id        String   @id @default(uuid())
+  // date download expires
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  productId String
+  // cascade will delete all downloads associated with a deleted product
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
