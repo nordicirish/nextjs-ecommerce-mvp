@@ -6,11 +6,14 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Nav>
-      <NavLink href="/admin">Dasboard</NavLink>
-      <NavLink href="/admin/products">Products</NavLink>
-      <NavLink href="/admin/users">Users</NavLink>
-      <NavLink href="/admin/orders">Sales</NavLink>
-    </Nav>
+    <>
+      <Nav>
+        <NavLink href="/admin">Dashboard</NavLink>
+        <NavLink href="/admin/products">Products</NavLink>
+        <NavLink href="/admin/users">Customers</NavLink>
+        <NavLink href="/admin/orders">Sales</NavLink>
+      </Nav>
+      <div className="container my-6">{children}</div>
+    </>
   );
 }
