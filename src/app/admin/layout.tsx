@@ -1,4 +1,6 @@
 import { Nav, NavLink } from "@/components/nav";
+// force dynamic to prevent caching of the admin data
+export const dynamic = "force-dynamic";
 
 export default function AdminLayout({
   children,
