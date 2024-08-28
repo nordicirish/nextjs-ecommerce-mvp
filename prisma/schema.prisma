@@ -13,6 +13,7 @@ datasource db {
 model Product {
   id                     String                 @id @default(uuid())
   // cents for stripe integration
+  name                   String
   priceInCents           Int
   filePath               String
   imagePath              String
