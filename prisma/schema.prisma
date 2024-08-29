@@ -23,7 +23,7 @@ model Product {
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
   // orders is an array of orders
-  Orders                 Order[]
+  orders                 Order[]
   // downloadVefictions is an array of downloadVerifications
   downloadVerifications  DownloadVerification[]
 }

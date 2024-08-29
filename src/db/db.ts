@@ -8,6 +8,7 @@ declare global {
   var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
 }
 
+
 const db = globalThis.prisma ?? prismaClientSingleton();
 
 export default db;
