@@ -89,7 +89,7 @@ async function ProductsTable() {
                 </>
               ) : (
                 <>
-                  <XCircleIcon />
+                  <XCircleIcon className="stroke-destructive" />
                   <span className="sr-only">Not Available for Purchase</span>
                 </>
               )}
